@@ -1,30 +1,209 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { 
+  Briefcase, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Facebook, 
+  Twitter, 
+  Linkedin, 
+  Instagram,
+  Github,
+  Heart,
+  ExternalLink
+} from 'lucide-react';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = {
+    company: [
+      { name: 'About Us', href: '#' },
+      { name: 'Our Team', href: '#' },
+      { name: 'Careers', href: '#' },
+      { name: 'Press', href: '#' }
+    ],
+    jobSeekers: [
+      { name: 'Browse Jobs', href: '/jobs' },
+      { name: 'Career Advice', href: '#' },
+      { name: 'Resume Builder', href: '#' },
+      { name: 'Interview Tips', href: '#' }
+    ],
+    employers: [
+      { name: 'Post a Job', href: '/admin/jobs/create' },
+      { name: 'Employer Dashboard', href: '/admin/companies' },
+      { name: 'Pricing', href: '#' },
+      { name: 'Success Stories', href: '#' }
+    ],
+    support: [
+      { name: 'Help Center', href: '#' },
+      { name: 'Contact Us', href: '#' },
+      { name: 'Privacy Policy', href: '#' },
+      { name: 'Terms of Service', href: '#' }
+    ]
+  };
+
+  const socialLinks = [
+    { Icon: Facebook, href: 'https://facebook.com', name: 'Facebook' },
+    { Icon: Twitter, href: 'https://twitter.com', name: 'Twitter' },
+    { Icon: Linkedin, href: 'https://linkedin.com', name: 'LinkedIn' },
+    { Icon: Instagram, href: 'https://instagram.com', name: 'Instagram' },
+    { Icon: Github, href: 'https://github.com', name: 'GitHub' }
+  ];
+
   return (
-    <footer className="border-t border-t-gray-200 py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <h2 className="text-xl font-bold">Job Hunt</h2>
-            <p className="text-sm">© 2024 Your Company. All rights reserved.</p>
+    <footer className="relative mt-20">
+      {/* Gradient Border */}
+      <div className="h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500"></div>
+      
+      <div className="glass-card rounded-none border-0">
+        <div className="max-w-7xl mx-auto px-4 py-16">
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+            {/* Brand Section */}
+            <div className="lg:col-span-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-6"
+              >
+                <div className='flex items-center gap-2 mb-4'>
+                  <div className="p-2 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500">
+                    <Briefcase className="w-6 h-6 text-white" />
+                  </div>
+                  <span className='text-2xl font-bold font-poppins text-white'>
+                    Career<span className='gradient-text-secondary'>Hub</span>
+                  </span>
+                </div>
+                <p className="text-white/70 mb-6">
+                  Connecting talented professionals with amazing opportunities worldwide.
+                </p>
+                
+                {/* Contact Info */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-white/70">
+                    <Mail className="w-4 h-4" />
+                    <span>hello@careerhub.com</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-white/70">
+                    <Phone className="w-4 h-4" />
+                    <span>+1 (555) 123-4567</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-white/70">
+                    <MapPin className="w-4 h-4" />
+                    <span>San Francisco, CA</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Links Sections */}
+            {Object.entries(footerLinks).map(([category, links], index) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <h3 className="text-white font-semibold mb-4 capitalize">
+                  {category === 'jobSeekers' ? 'Job Seekers' : category}
+                </h3>
+                <ul className="space-y-3">
+                  {links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <a
+                        href={link.href}
+                        className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-1 group"
+                      >
+                        {link.name}
+                        <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
           </div>
-          
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="https://facebook.com" className="hover:text-gray-400" aria-label="Facebook">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.676 0H1.324C.593 0 0 .592 0 1.324v21.352C0 23.408.593 24 1.324 24H12.82V14.706H9.692v-3.578h3.128V8.408c0-3.1 1.893-4.787 4.657-4.787 1.325 0 2.463.1 2.794.144v3.238l-1.918.001c-1.503 0-1.794.715-1.794 1.762v2.31h3.587l-.468 3.578h-3.119V24h6.116C23.407 24 24 23.408 24 22.676V1.324C24 .592 23.407 0 22.676 0z" /></svg>
-            </a>
-            <a href="https://twitter.com" className="hover:text-gray-400" aria-label="Twitter">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.835 9.835 0 01-2.828.775 4.934 4.934 0 002.165-2.724 9.867 9.867 0 01-3.127 1.195 4.924 4.924 0 00-8.38 4.49A13.978 13.978 0 011.67 3.149 4.93 4.93 0 003.16 9.724a4.903 4.903 0 01-2.229-.616v.062a4.93 4.93 0 003.946 4.827 4.902 4.902 0 01-2.224.084 4.93 4.93 0 004.6 3.417A9.869 9.869 0 010 21.543a13.978 13.978 0 007.548 2.212c9.057 0 14.01-7.507 14.01-14.01 0-.213-.004-.425-.015-.636A10.012 10.012 0 0024 4.557z" /></svg>
-            </a>
-            <a href="https://linkedin.com" className="hover:text-gray-400" aria-label="LinkedIn">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452H16.85v-5.569c0-1.327-.027-3.037-1.852-3.037-1.854 0-2.137 1.446-2.137 2.94v5.666H9.147V9.756h3.448v1.464h.05c.48-.91 1.653-1.871 3.401-1.871 3.634 0 4.307 2.39 4.307 5.498v5.605zM5.337 8.29c-1.105 0-2-.896-2-2 0-1.106.895-2 2-2 1.104 0 2 .895 2 2 0 1.104-.896 2-2 2zM7.119 20.452H3.553V9.756h3.566v10.696zM22.225 0H1.771C.791 0 0 .774 0 1.729v20.542C0 23.226.792 24 1.771 24h20.451c.979 0 1.771-.774 1.771-1.729V1.729C24 .774 23.205 0 22.225 0z" /></svg>
-            </a>
+
+          {/* Newsletter Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-12 p-8 glass rounded-2xl"
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-white mb-2">Stay Updated</h3>
+              <p className="text-white/70">Get the latest job opportunities delivered to your inbox</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 input-glass py-3 px-4 text-white placeholder:text-white/60"
+              />
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-gradient px-8 py-3 rounded-xl font-semibold text-white"
+              >
+                Subscribe
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Bottom Section */}
+          <div className="border-t border-white/20 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              {/* Copyright */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="text-white/70 text-center md:text-left"
+              >
+                <p className="flex items-center gap-2">
+                  © {currentYear} CareerHub. Made with{' '}
+                  <Heart className="w-4 h-4 text-red-500 animate-pulse" />
+                  for job seekers worldwide.
+                </p>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="flex gap-4"
+              >
+                {socialLinks.map(({ Icon, href, name }, index) => (
+                  <motion.a
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.2, y: -2 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="p-3 glass rounded-full text-white/70 hover:text-white transition-colors duration-300"
+                    aria-label={name}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </motion.a>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
